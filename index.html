@@ -2,201 +2,267 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MMster Hub | Premium Assets</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>MMster Hub Pro | Premium Assets</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* --- 1. Premium Variables & Reset --- */
         :root {
             --primary: #6c5ce7;
-            --bg: #ffffff;
-            --card-bg: #111111;
-            --text-dark: #1a1a1a;
-            --text-light: #ffffff;
-            --gray: #f8f9fa;
-            --muted: #999999;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --primary-dark: #5849be;
+            --bg-body: #F8F9FC; 
+            --bg-card: #ffffff;
+            --text-main: #1e272e;
+            --text-sec: #808e9b;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            
+            /* Unique Section Colors (Backgrounds) */
+            --bg-trending: #fff8f0; /* Light Orange */
+            --bg-fresh: #f0fff4;    /* Light Green */
+            --bg-editor: #e0f7fa;   /* Sky Blue */
+            --bg-shake: #ffebee;    /* Light Red */
+            --bg-cc: #e8f5e9;       /* Green */
+            --bg-watermark: #f3e5f5; /* Light Purple */
+            --bg-text: #fff3e0;     /* Light Orange/Yellow */
+            --bg-transition: #e3f2fd; /* Light Blue */
+            --bg-default: #ffffff;
+
+            /* Unique Text Colors */
+            --text-trending: #e67e22;
+            --text-editor: #00acc1;
+            --text-shake: #e74c3c;
+            --text-cc: #2ecc71;
+            --text-watermark: #9b59b6;
+            --text-transition: #3498db;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--bg); color: var(--text-dark); padding-bottom: 100px; overflow-x: hidden; }
-
-        /* --- Header & Search --- */
-        header {
-            padding: 15px 20px;
-            background: #fff;
-            position: sticky;
-            top: 0; z-index: 1000;
-            border-bottom: 1px solid #eee;
-        }
-        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .logo { font-weight: 800; font-size: 1.4rem; letter-spacing: -1px; }
-        .logo span { color: var(--primary); }
-
-        .search-container {
-            background: var(--gray);
-            border-radius: 12px;
-            padding: 10px 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border: 1px solid #eee;
-        }
-        .search-container input {
-            border: none; background: none; outline: none; width: 100%;
-            font-size: 0.9rem; font-weight: 600; color: var(--text-dark);
-        }
-
-        /* --- Layout --- */
-        .section-container { padding: 20px; }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .section-header h2 { font-size: 1.1rem; font-weight: 800; }
-
-        /* --- 2xN Professional Grid --- */
-        .assets-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-
-        /* --- Black Card --- */
-        .asset-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: var(--transition);
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-        .card-thumb-wrap { width: 100%; height: 130px; overflow: hidden; position: relative; }
-        .card-thumb { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
-        .asset-card:hover .card-thumb { transform: scale(1.1); }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
-        .card-info { padding: 12px; }
-        .card-tag { font-size: 0.65rem; color: var(--primary); font-weight: 800; text-transform: uppercase; margin-bottom: 5px; display: block; }
-        .card-title { font-size: 0.85rem; color: var(--text-light); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            padding-bottom: 100px; 
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
 
-        /* --- Horizontal Row (Home Only) --- */
-        .horizontal-row { display: flex; overflow-x: auto; gap: 15px; padding-bottom: 10px; scrollbar-width: none; }
-        .horizontal-row::-webkit-scrollbar { display: none; }
-        .horizontal-row .asset-card { min-width: 160px; }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- Filter Chips --- */
-        .filter-bar { padding: 5px 20px 15px; display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; }
-        .filter-bar::-webkit-scrollbar { display: none; }
-        .chip { padding: 8px 18px; background: var(--gray); border-radius: 50px; font-size: 0.8rem; font-weight: 700; border: none; color: var(--muted); cursor: pointer; white-space: nowrap; }
-        .chip.active { background: var(--primary); color: #fff; }
+        /* --- 2. Header --- */
+        header { 
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 16px 20px;
+        }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .logo { font-weight: 800; font-size: 1.5rem; color: var(--text-main); letter-spacing: -1px; }
+        .pro-badge {
+            font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px;
+            background: var(--primary); color: white; padding: 4px 10px; border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(108, 92, 231, 0.3);
+        }
+        .search-wrapper { position: relative; }
+        .search-wrapper i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--text-sec); }
+        .search-input {
+            width: 100%; background: var(--bg-card); border: 1px solid #eee;
+            padding: 14px 14px 14px 45px; border-radius: var(--radius-md);
+            font-weight: 500; color: var(--text-main); box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+        .search-input:focus { outline: none; border-color: var(--primary); }
 
-        /* --- Footer Nav --- */
-        footer {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: rgba(255,255,255,0.95); backdrop-filter: blur(15px);
+        /* --- 3. Navigation --- */
+        .nav-bar {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 400px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
             display: flex; justify-content: space-around; padding: 12px 0;
-            border-top: 1px solid #eee; z-index: 2000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 999;
+            border: 1px solid rgba(255,255,255,0.8);
         }
-        .nav-btn { display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--muted); cursor: pointer; flex: 1; }
-        .nav-btn i { font-size: 1.3rem; }
-        .nav-btn span { font-size: 0.7rem; font-weight: 700; }
-        .nav-btn.active { color: var(--primary); }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-sec); text-decoration: none; transition: 0.3s; padding: 5px 15px; }
+        .nav-item i { font-size: 1.3rem; margin-bottom: 4px; transition: 0.3s; }
+        .nav-item span { font-size: 0.7rem; font-weight: 600; opacity: 0.8; }
+        .nav-item.active { color: var(--primary); }
+        .nav-item.active i { transform: translateY(-3px); }
+        .nav-item.active::after { content: ''; position: absolute; bottom: -5px; width: 5px; height: 5px; background: var(--primary); border-radius: 50%; }
 
-        /* --- Coming Soon Footer --- */
-        .coming-soon { text-align: center; padding: 40px 20px; color: var(--muted); font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
+        /* --- 4. Sections with Unique Colors --- */
+        .page { display: none; padding: 10px 0; animation: fadeIn 0.5s ease; }
+        .page.active { display: block; }
 
-        /* --- Modal & Fullscreen --- */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 3000; justify-content: center; align-items: flex-end; }
-        .modal-content { background: #fff; width: 100%; max-height: 90vh; border-radius: 30px 30px 0 0; padding: 25px; overflow-y: auto; position: relative; }
+        .custom-section {
+            margin: 20px 20px;
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        /* Dynamic Backgrounds Classes */
+        .bg-trending { background-color: var(--bg-trending); }
+        .bg-fresh { background-color: var(--bg-fresh); }
+        .bg-editor { background-color: var(--bg-editor); }
+        .bg-shake { background-color: var(--bg-shake); }
+        .bg-cc { background-color: var(--bg-cc); }
+        .bg-watermark { background-color: var(--bg-watermark); }
+        .bg-text { background-color: var(--bg-text); }
+        .bg-transition { background-color: var(--bg-transition); }
+        .bg-default { background-color: var(--bg-default); }
+
+        .section-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 15px;
+        }
+        .section-title { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.5px; }
+
+        /* Dynamic Text Colors */
+        .color-trending { color: var(--text-trending); }
+        .color-fresh { color: var(--tone-new); } /* Using existing var or new */
+        .color-editor { color: var(--text-editor); }
+        .color-shake { color: var(--text-shake); }
+        .color-cc { color: var(--text-cc); }
+        .color-watermark { color: var(--text-watermark); }
+        .color-text { color: #d35400; }
+        .color-transition { color: var(--text-transition); }
+
+        /* --- 5. Cards --- */
+        .h-scroll-container { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 5px; scrollbar-width: none; }
+        .h-scroll-container::-webkit-scrollbar { display: none; }
+
+        .card {
+            flex: 0 0 150px; background: white; border-radius: 16px;
+            overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s; cursor: pointer;
+        }
+        .card:active { transform: scale(0.96); }
         
-        .fs-viewer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 4000; justify-content: center; align-items: center; }
-        .fs-viewer img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .fs-close { position: absolute; top: 20px; right: 20px; color: #fff; font-size: 2rem; cursor: pointer; }
+        .card-img-wrap { width: 100%; height: 100px; background: #eee; position: relative; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; } /* No hover zoom needed if click disabled */
+        
+        .card-body { padding: 10px; }
+        .card-title { font-size: 0.8rem; font-weight: 700; line-height: 1.3; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        /* Grid for Templates */
+        .grid-view { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .grid-card { flex: none; }
+        .grid-card .card-img-wrap { height: 110px; }
 
-        .img-gallery { display: flex; gap: 10px; overflow-x: auto; margin: 15px 0; scrollbar-width: none; }
-        .img-gallery img { height: 180px; border-radius: 15px; cursor: zoom-in; flex-shrink: 0; }
+        /* --- 6. Filter Pills --- */
+        .filter-sticky {
+            position: sticky; top: 70px; z-index: 90; margin-bottom: 10px;
+            display: flex; gap: 8px; overflow-x: auto; padding: 5px 20px;
+            scrollbar-width: none; background: var(--bg-body);
+        }
+        .filter-pill {
+            padding: 8px 16px; border-radius: 20px; border: 1px solid #eee;
+            background: white; color: var(--text-sec); font-size: 0.8rem; font-weight: 600;
+            white-space: nowrap; transition: 0.2s;
+        }
+        .filter-pill.active { background: var(--text-main); color: white; border-color: var(--text-main); }
 
-        .download-btn { background: var(--primary); color: #fff; text-align: center; padding: 18px; border-radius: 15px; display: block; text-decoration: none; font-weight: 800; margin-top: 20px; box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3); }
+        /* --- 7. Modal --- */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000;
+            display: flex; align-items: flex-end; justify-content: center;
+            opacity: 0; pointer-events: none; transition: 0.3s;
+        }
+        .modal-overlay.open { opacity: 1; pointer-events: auto; }
+        .modal-sheet {
+            background: white; width: 100%; max-width: 500px;
+            border-radius: 24px 24px 0 0; padding: 25px 20px;
+            transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            max-height: 90vh; overflow-y: auto;
+        }
+        .modal-overlay.open .modal-sheet { transform: translateY(0); }
+        
+        .drag-handle { width: 40px; height: 4px; background: #eee; border-radius: 2px; margin: -10px auto 20px; }
+        .modal-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 10px; }
+        .modal-meta { display: flex; gap: 8px; margin-bottom: 20px; }
+        .modal-tag { font-size: 0.7rem; background: #f5f5f5; padding: 5px 10px; border-radius: 8px; font-weight: 700; color: #666; text-transform: uppercase; }
+        
+        /* Gallery - Images clickable inside modal but no fullscreen viewer attached to these */
+        .modal-gallery { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 15px; margin-bottom: 20px; }
+        .modal-thumb { width: 90px; height: 90px; border-radius: 12px; object-fit: cover; flex-shrink: 0; border: 1px solid #eee; }
+        
+        .btn-download {
+            display: block; width: 100%; text-align: center;
+            background: var(--primary); color: white; font-weight: 700;
+            padding: 16px; border-radius: 16px; text-decoration: none;
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+            border: none; cursor: pointer;
+        }
+        .btn-download.loading { opacity: 0.8; pointer-events: none; }
 
-        .loader { text-align: center; padding: 50px; display: none; font-size: 2rem; color: var(--primary); }
+        /* Skeleton */
+        .skeleton { background: #eee; border-radius: 8px; }
+        .skeleton-img { width: 100%; height: 100px; margin-bottom: 10px; }
+        .skeleton-text { width: 80%; height: 12px; }
+
     </style>
 </head>
 <body>
 
+    <!-- Header -->
     <header>
-        <div class="header-top">
-            <div class="logo">MMSTER<span>.</span>HUB</div>
-            <i class="fas fa-bell"></i>
+        <div class="header-inner">
+            <div class="logo">MMSTER<span style="font-weight:300">HUB</span></div>
+            <div class="pro-badge"><i class="fas fa-crown"></i> PRO</div>
         </div>
-        <div class="search-container">
-            <i class="fas fa-search" style="color: #bbb;"></i>
-            <input type="text" id="searchInput" placeholder="Search templates, png, fonts...">
+        <div class="search-wrapper">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="Search templates, png, overlays...">
         </div>
     </header>
 
-    <!-- Pages -->
-    <div id="page-home" class="page-content"></div>
-    
-    <div id="page-templates" class="page-content" style="display:none;">
-        <div class="filter-bar" id="filter-templates">
-            <button class="chip active" data-cat="all">All Templates</button>
-            <button class="chip" data-cat="am_template">Alight Motion</button>
-            <button class="chip" data-cat="node_template">Node Video</button>
+    <!-- Main Content -->
+    <main id="appContent">
+        <!-- Loader -->
+        <div id="loader" style="padding: 20px;">
+            <div class="skeleton skeleton-img"></div>
+            <div class="skeleton skeleton-text"></div>
         </div>
-        <div class="section-container">
-            <div class="assets-grid" id="grid-templates"></div>
-        </div>
-    </div>
-
-    <div id="page-materials" class="page-content" style="display:none;">
-        <div class="filter-bar" id="filter-materials">
-            <button class="chip active" data-cat="all">All Materials</button>
-            <button class="chip" data-cat="png">PNGs</button>
-            <button class="chip" data-cat="font">Fonts</button>
-            <button class="chip" data-cat="gif">GIFs</button>
-        </div>
-        <div class="section-container">
-            <div class="assets-grid" id="grid-materials"></div>
-        </div>
-    </div>
-
-    <div id="loader" class="loader"><i class="fas fa-circle-notch fa-spin"></i></div>
-    <div id="coming-soon-trigger" class="coming-soon">—— Coming Soon ——</div>
+    </main>
 
     <!-- Navigation -->
-    <footer>
-        <div class="nav-btn active" onclick="switchPage('home')">
-            <i class="fas fa-home"></i>
-            <span>Home</span>
-        </div>
-        <div class="nav-btn" onclick="switchPage('templates')">
-            <i class="fas fa-wand-magic-sparkles"></i>
-            <span>Templates</span>
-        </div>
-        <div class="nav-btn" onclick="switchPage('materials')">
-            <i class="fas fa-shapes"></i>
-            <span>Materials</span>
-        </div>
-    </footer>
+    <nav class="nav-bar">
+        <a href="#" class="nav-item active" onclick="switchPage('home', this)"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="#" class="nav-item" onclick="switchPage('templates', this)"><i class="fas fa-layer-group"></i><span>Templates</span></a>
+        <a href="#" class="nav-item" onclick="switchPage('materials', this)"><i class="fas fa-shapes"></i><span>Assets</span></a>
+    </nav>
 
-    <!-- Asset Modal -->
-    <div class="modal" id="assetModal">
-        <div class="modal-content">
-            <h2 id="modalTitle" style="font-weight: 800; margin-bottom: 5px;">Title</h2>
-            <div id="modalGallery" class="img-gallery"></div>
-            <p id="modalDesc" style="color: #666; font-size: 0.95rem; line-height: 1.6;"></p>
-            <a href="#" class="download-btn" id="modalDownload" target="_blank">Download Now</a>
-            <button onclick="closeModal()" style="width:100%; border:none; background:none; margin: 20px 0; color:#aaa; font-weight:700;">Swipe down to close</button>
+    <!-- Modal -->
+    <div class="modal-overlay" id="detailModal" onclick="closeModal(event)">
+        <div class="modal-sheet">
+            <div class="drag-handle"></div>
+            <h2 id="mTitle" class="modal-title">Loading...</h2>
+            <div class="modal-meta">
+                <span id="mCat" class="modal-tag">Category</span>
+                <span id="mType" class="modal-tag">Type</span>
+            </div>
+            <!-- Note: Images here are just for preview. Logic removed to open fullscreen. -->
+            <div id="mGallery" class="modal-gallery"></div>
+            <p id="mDesc" style="color: #666; line-height: 1.6; margin-bottom: 25px; font-size: 0.9rem;"></p>
+            <a id="mDlBtn" href="#" target="_blank" class="btn-download">Download Now</a>
         </div>
     </div>
 
-    <!-- Fullscreen Viewer -->
-    <div class="fs-viewer" id="fsViewer">
-        <span class="fs-close" onclick="closeFullscreen()">&times;</span>
-        <img id="fsImg" src="">
-    </div>
-
+    <!-- Firebase & Script -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
     <script>
+        // 1. Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyB0EsLkQGFG46yLakoaj5gkXZDeyg1XjoM",
             authDomain: "mmster-afa97.firebaseapp.com",
@@ -208,159 +274,283 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        let allData = [];
-        let currentTab = 'home';
-        let searchQuery = '';
+        // 2. State
+        let allAssets = [];
+        let currentPage = 'home';
+        let currentFilter = 'all'; // For Templates Page filter (AM/Node)
+        let currentModalItem = null;
 
-        // Helper: Image string to Array
-        function getImgArray(data) {
-            if (!data) return [];
-            return typeof data === 'string' ? data.split(',').map(s => s.trim()) : data;
+        // 3. Load Data
+        db.ref('assets').on('value', snap => {
+            const val = snap.val();
+            if(val) {
+                allAssets = Object.keys(val).map(key => ({id: key, ...val[key]}));
+                allAssets.reverse();
+                renderApp();
+            }
+        });
+
+        // 4. Search
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            renderApp(e.target.value.toLowerCase());
+        });
+
+        // 5. Render Logic
+        function renderApp(searchTerm = '') {
+            const filteredData = allAssets.filter(item => 
+                (item.title && item.title.toLowerCase().includes(searchTerm)) || 
+                (item.category && item.category.toLowerCase().includes(searchTerm))
+            );
+
+            let html = '';
+            if (currentPage === 'home') html = renderHome(filteredData);
+            else if (currentPage === 'templates') html = renderTemplates(filteredData);
+            else if (currentPage === 'materials') html = renderMaterials(filteredData);
+
+            document.getElementById('appContent').innerHTML = html;
         }
 
-        function loadData() {
-            document.getElementById('loader').style.display = 'block';
-            db.ref('assets').on('value', snap => {
-                const val = snap.val();
-                allData = val ? Object.keys(val).map(k => ({id: k, ...val[k]})) : [];
-                allData.reverse();
-                document.getElementById('loader').style.display = 'none';
-                render();
-            });
-        }
+        // --- Page: Home (Unique Colors) ---
+        function renderHome(data) {
+            const trending = data.filter(i => i.isTrending);
+            const newest = data.slice(0, 8);
+            const editor = data.filter(i => i.isAdmin);
 
-        function createCard(item) {
-            const imgs = getImgArray(item.images);
             return `
-                <div class="asset-card" onclick="openModal('${item.id}')">
-                    <div class="card-thumb-wrap">
-                        <img src="${imgs[0] || ''}" class="card-thumb" loading="lazy">
+                <div class="fade-in">
+                    ${trending.length ? `
+                    <div class="custom-section bg-trending">
+                        <div class="section-header">
+                            <h2 class="section-title color-trending"><i class="fas fa-fire"></i> Trending Now</h2>
+                        </div>
+                        <div class="h-scroll-container">
+                            ${trending.map(item => createCard(item)).join('')}
+                        </div>
+                    </div>` : ''}
+
+                    ${newest.length ? `
+                    <div class="custom-section bg-fresh">
+                        <div class="section-header">
+                            <h2 class="section-title color-fresh"><i class="fas fa-sparkles"></i> Fresh Drops</h2>
+                        </div>
+                        <div class="h-scroll-container">
+                            ${newest.map(item => createCard(item)).join('')}
+                        </div>
+                    </div>` : ''}
+
+                    ${editor.length ? `
+                    <div class="custom-section bg-editor">
+                        <div class="section-header">
+                            <h2 class="section-title color-editor"><i class="fas fa-star"></i> Editor's Choice</h2>
+                        </div>
+                        <div class="h-scroll-container">
+                            ${editor.map(item => createCard(item)).join('')}
+                        </div>
+                    </div>` : ''}
+                </div>
+            `;
+        }
+
+        // --- Page: Templates (Subsections with Colors) ---
+        function renderTemplates(data) {
+            // Base data: All templates
+            let baseData = data.filter(i => i.category.includes('template'));
+
+            // Filter by Tool (AM/Node) if selected
+            if (currentFilter === 'am_template') baseData = baseData.filter(i => i.category === 'am_template');
+            else if (currentFilter === 'node_template') baseData = baseData.filter(i => i.category === 'node_template');
+            
+            // Subcategories to show
+            const subCats = [
+                { key: 'shake', label: 'Shake', bg: 'bg-shake', color: 'color-shake', icon: 'fa-hand-holding' },
+                { key: 'cc', label: 'Color Correction', bg: 'bg-cc', color: 'color-cc', icon: 'fa-palette' },
+                { key: 'watermark', label: 'Watermark', bg: 'bg-watermark', color: 'color-watermark', icon: 'fa-copyright' },
+                { key: 'text', label: 'Text Animation', bg: 'bg-text', color: 'color-text', icon: 'fa-font' },
+                { key: 'transition', label: 'Transition', bg: 'bg-transition', color: 'color-transition', icon: 'fa-exchange-alt' }
+            ];
+
+            let sectionsHtml = subCats.map(cat => {
+                const catData = baseData.filter(i => i.subcategory === cat.key);
+                if (catData.length === 0) return ''; // Don't show empty sections
+
+                return `
+                <div class="custom-section ${cat.bg}">
+                    <div class="section-header">
+                        <h2 class="section-title ${cat.color}"><i class="fas ${cat.icon}"></i> ${cat.label}</h2>
                     </div>
-                    <div class="card-info">
-                        <span class="card-tag">${item.category}</span>
+                    <div class="grid-view">
+                        ${catData.map(item => createCard(item, true)).join('')}
+                    </div>
+                </div>
+                `;
+            }).join('');
+
+            return `
+                <div class="fade-in">
+                    <div class="filter-sticky">
+                        <button class="filter-pill ${currentFilter === 'all' ? 'active' : ''}" onclick="setFilter('all', this)">All Tools</button>
+                        <button class="filter-pill ${currentFilter === 'am_template' ? 'active' : ''}" onclick="setFilter('am_template', this)">Alight Motion</button>
+                        <button class="filter-pill ${currentFilter === 'node_template' ? 'active' : ''}" onclick="setFilter('node_template', this)">Node Video</button>
+                    </div>
+                    ${sectionsHtml || '<div style="text-align:center; padding:40px; color:#999;">No templates found.</div>'}
+                </div>
+            `;
+        }
+
+        // --- Page: Materials ---
+        function renderMaterials(data) {
+            let content = data.filter(i => !i.category.includes('template'));
+            
+            // Filter by category
+            if (currentFilter !== 'all') {
+                content = content.filter(i => i.category === currentFilter);
+            }
+
+            return `
+                <div class="fade-in">
+                    <div class="filter-sticky">
+                        <button class="filter-pill ${currentFilter === 'all' ? 'active' : ''}" onclick="setFilter('all', this)">All</button>
+                        <button class="filter-pill ${currentFilter === 'png' ? 'active' : ''}" onclick="setFilter('png', this)">PNGs</button>
+                        <button class="filter-pill ${currentFilter === 'font' ? 'active' : ''}" onclick="setFilter('font', this)">Fonts</button>
+                        <button class="filter-pill ${currentFilter === 'overlay' ? 'active' : ''}" onclick="setFilter('overlay', this)">Overlays</button>
+                        <button class="filter-pill ${currentFilter === 'gif' ? 'active' : ''}" onclick="setFilter('gif', this)">GIFs</button>
+                    </div>
+
+                    <div class="grid-view" style="padding: 10px 20px;">
+                        ${content.length > 0 ? content.map(item => createCard(item, true)).join('') : '<p style="text-align:center; grid-column:1/-1; color:#999;">No assets found.</p>'}
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- Component: Card Generator ---
+        function createCard(item, isGrid = false) {
+            const images = typeof item.images === 'string' ? item.images.split(',') : (item.images || []);
+            const mainImg = images[0] || 'https://via.placeholder.com/300x200?text=No+Image';
+
+            return `
+                <div class="card ${isGrid ? 'grid-card' : ''}" onclick="openModal('${item.id}')">
+                    <div class="card-img-wrap">
+                        <img src="${mainImg}" class="card-img" loading="lazy" onerror="this.src='https://via.placeholder.com/300x200?text=Error'">
+                    </div>
+                    <div class="card-body">
                         <h3 class="card-title">${item.title}</h3>
                     </div>
                 </div>
             `;
         }
 
-        function render() {
-            const query = searchQuery.toLowerCase();
-            const filteredData = allData.filter(item => 
-                item.title.toLowerCase().includes(query) || 
-                item.category.toLowerCase().includes(query)
-            );
+        // --- Interactions ---
+        function switchPage(pageId, navEl) {
+            currentPage = pageId;
+            currentFilter = 'all';
+            
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            navEl.classList.add('active');
+            
+            renderApp(document.getElementById('searchInput').value.toLowerCase());
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-            if (currentTab === 'home') {
-                const home = document.getElementById('page-home');
-                const latest = filteredData.slice(0, 6);
-                const trending = filteredData.filter(i => i.isTrending);
-                const admin = filteredData.filter(i => i.isAdmin);
+        function setFilter(filterType, btn) {
+            currentFilter = filterType;
+            const parent = btn.parentElement;
+            Array.from(parent.children).forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            renderApp(document.getElementById('searchInput').value.toLowerCase());
+        }
 
-                home.innerHTML = `
-                    ${renderSection('Latest Assets', latest, 'grid')}
-                    ${renderSection('Trending Now', trending, 'row')}
-                    ${renderSection('Editor\'s Choice', admin, 'row')}
-                    ${renderSection('Popular Items', filteredData.slice(6, 12), 'row')}
-                `;
-            } else if (currentTab === 'templates') {
-                const templates = filteredData.filter(i => i.category.includes('template'));
-                document.getElementById('grid-templates').innerHTML = templates.map(createCard).join('');
-            } else if (currentTab === 'materials') {
-                const materials = filteredData.filter(i => !i.category.includes('template'));
-                document.getElementById('grid-materials').innerHTML = materials.map(createCard).join('');
+        // --- Download Logic (Previously Implemented) ---
+        function handleDownloadClick(e) {
+            e.preventDefault();
+            const btn = e.currentTarget;
+            const item = currentModalItem;
+            
+            if (!item || !item.downloadUrl) return;
+
+            const today = new Date().toISOString().split('T')[0];
+            const storedDate = localStorage.getItem('mmster_ad_date');
+            const storedClicks = parseInt(localStorage.getItem('mmster_ad_clicks') || '0');
+
+            let shouldShowAd = false;
+
+            if (storedDate !== today) {
+                shouldShowAd = true;
+                localStorage.setItem('mmster_ad_date', today);
+                localStorage.setItem('mmster_ad_clicks', '1');
+            } else {
+                if (storedClicks === 0) {
+                    shouldShowAd = true;
+                    localStorage.setItem('mmster_ad_clicks', '1');
+                } else {
+                    shouldShowAd = false;
+                }
+            }
+
+            btn.classList.add('loading');
+            
+            if (shouldShowAd && item.adsLink) {
+                window.open(item.adsLink, '_blank');
+                setTimeout(() => {
+                    btn.classList.remove('loading');
+                    btn.innerHTML = `Ad Opened! Tap Again for File <i class="fas fa-redo" style="margin-left:8px;"></i>`;
+                }, 1000);
+            } else {
+                window.open(item.downloadUrl, '_blank');
+                setTimeout(() => {
+                    btn.classList.remove('loading');
+                    closeModal();
+                }, 500);
             }
         }
 
-        function renderSection(title, data, type) {
-            if (data.length === 0) return '';
-            const content = type === 'grid' 
-                ? `<div class="assets-grid">${data.map(createCard).join('')}</div>`
-                : `<div class="horizontal-row">${data.map(createCard).join('')}</div>`;
-            return `
-                <div class="section-container">
-                    <div class="section-header"><h2>${title}</h2><span style="color:var(--primary); font-size:0.8rem; font-weight:700;">See More</span></div>
-                    ${content}
-                </div>
-            `;
-        }
-
-        // Search Implementation
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            searchQuery = e.target.value;
-            render();
-        });
-
-        // Navigation Implementation
-        function switchPage(page) {
-            currentTab = page;
-            document.querySelectorAll('.page-content').forEach(p => p.style.display = 'none');
-            document.getElementById('page-' + page).style.display = 'block';
-            
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            
-            window.scrollTo({top: 0, behavior: 'smooth'});
-            render();
-        }
-
-        // Modal & Image Viewer
+        // --- Modal Logic ---
         function openModal(id) {
-            const item = allData.find(i => i.id === id);
-            document.getElementById('modalTitle').innerText = item.title;
-            document.getElementById('modalDesc').innerText = item.description || 'No additional details provided.';
-            document.getElementById('modalDownload').href = item.downloadUrl;
-            
-            const gallery = document.getElementById('modalGallery');
-            gallery.innerHTML = '';
-            const imgs = getImgArray(item.images);
-            imgs.forEach(url => {
-                const img = document.createElement('img');
-                img.src = url;
-                img.onclick = (e) => { e.stopPropagation(); openFullscreen(url); };
-                gallery.appendChild(img);
-            });
+            const item = allAssets.find(i => i.id === id);
+            if(!item) return;
 
-            document.getElementById('assetModal').style.display = 'flex';
+            currentModalItem = item;
+            document.getElementById('mTitle').innerText = item.title;
+            document.getElementById('mCat').innerText = item.category || 'General';
+            document.getElementById('mType').innerText = item.subcategory || 'Asset';
+            document.getElementById('mDesc').innerText = item.description || "High quality asset for editing.";
+            
+            const dlBtn = document.getElementById('mDlBtn');
+            dlBtn.innerHTML = `Download Now`;
+            dlBtn.classList.remove('loading');
+            
+            // Replace button to remove old listeners
+            const newBtn = dlBtn.cloneNode(true);
+            dlBtn.parentNode.replaceChild(newBtn, dlBtn);
+            newBtn.addEventListener('click', handleDownloadClick);
+
+            // Render Gallery (Visual Only)
+            const gallery = document.getElementById('mGallery');
+            gallery.innerHTML = '';
+            const imgs = typeof item.images === 'string' ? item.images.split(',') : (item.images || []);
+            
+            if(imgs.length > 0) {
+                imgs.forEach(src => {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.className = 'modal-thumb';
+                    // No onclick event added here. Image cannot be clicked to zoom.
+                    gallery.appendChild(img);
+                });
+            } else {
+                gallery.innerHTML = '<span style="color:#aaa; font-size:0.8rem;">No preview available</span>';
+            }
+
+            document.getElementById('detailModal').classList.add('open');
             document.body.style.overflow = 'hidden';
         }
 
-        function closeModal() {
-            document.getElementById('assetModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
+        function closeModal(e) {
+            if (e.target.id === 'detailModal' || e.target.classList.contains('modal-sheet')) {
+                document.getElementById('detailModal').classList.remove('open');
+                document.body.style.overflow = '';
+            }
         }
-
-        function openFullscreen(url) {
-            const fs = document.getElementById('fsViewer');
-            document.getElementById('fsImg').src = url;
-            fs.style.display = 'flex';
-        }
-
-        function closeFullscreen() {
-            document.getElementById('fsViewer').style.display = 'none';
-        }
-
-        // Filter Logic
-        document.querySelectorAll('.chip').forEach(btn => {
-            btn.onclick = function() {
-                const parent = this.parentElement;
-                parent.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-                this.classList.add('active');
-                
-                const cat = this.dataset.cat;
-                const isTemplate = parent.id === 'filter-templates';
-                const gridId = isTemplate ? 'grid-templates' : 'grid-materials';
-                
-                let filtered = allData.filter(i => isTemplate ? i.category.includes('template') : !i.category.includes('template'));
-                if (cat !== 'all') filtered = filtered.filter(i => i.category === cat);
-                
-                document.getElementById(gridId).innerHTML = filtered.map(createCard).join('');
-            };
-        });
-
-        window.onclick = (e) => { if(e.target.className === 'modal') closeModal(); }
-
-        loadData();
     </script>
 </body>
 </html>
